@@ -28,7 +28,7 @@
     <h1>Regístrate en GameMate</h1>
     <p>Crea tu perfil y encuentra nuevos amigos para jugar.</p>
 
-    <form id="registroForm">
+    <form id="registroForm" style="display: none;">
       <label for="email">Email:</label><br />
       <input type="email" id="email" name="email" required /><br /><br />
       <label for="password">Contraseña:</label><br />
@@ -43,7 +43,7 @@
 
     <hr>
     <h2>Iniciar Sesión</h2>
-    <form id="loginForm">
+    <form id="loginForm" style="display: none;">
       <label for="loginEmail">Email:</label><br />
       <input type="email" id="loginEmail" name="loginEmail" required /><br /><br />
       <label for="loginPassword">Contraseña:</label><br />
@@ -52,22 +52,23 @@
     </form>
     <p id="loginFeedbackMensaje"></p>
 
-    <script src="script.js"></script>
-
-<hr>
+  <hr>
 <div id="dashboard" style="display: none;">
-  <h2>¡Bienvenido a GameMate!</h2>
-  <p>Estás en tu página de inicio. ¡Gracias por usar la plataforma!</p>
+  <h2>¡Bienvenido, <span id="userName"></span>!</h2>
+  
+  <div class="profile-container">
+    <img id="profilePic" src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-pic">
+    <button id="customizeProfileBtn">Personalizar Foto de Perfil</button>
+  </div>
+  
+  <p>Tus juegos favoritos:</p>
+  <h2><span id="userGames"></span>!</h2>
+  
   <button id="logoutBtn">Cerrar Sesión</button>
 </div>
 
-<script src="script.js"></script>
+    
 
-<form id="registroForm" style="display: none;">
-  </form>
-
-<form id="loginForm" style="display: none;">
-  </form>
-
+    <script src="script.js"></script>
   </body>
 </html>
