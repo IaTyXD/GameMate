@@ -8,70 +8,127 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
-
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyA9waDvb4x1AUb1ndk_NFDfn2CjKq2HW2E",
-        authDomain: "gamemate-2a419.firebaseapp.com",
-        projectId: "gamemate-2a419",
-        storageBucket: "gamemate-2a419.appspot.com",
-        messagingSenderId: "149749345149",
-        appId: "1:149749345149:web:89d3d5ebd73cf5a65afa14",
-        measurementId: "G-1ZHF3RHG3Y"
-      };
-      
-      firebase.initializeApp(firebaseConfig);
-    </script>
   </head>
 
   <body>
-    <img src="logo.png" alt="Logo de GameMate" style="width:150px;" />
-    <h1>Regístrate en GameMate</h1>
-    <p>Crea tu perfil y encuentra nuevos amigos para jugar.</p>
+    <div id="login-section">
+      <img id="main-logo-login" src="logo.png" alt="Logo de GameMate" style="width:250px;" />
+      <h1>Regístrate en GameMate</h1>
+      <p>Crea tu perfil y encuentra nuevos amigos para jugar.</p>
 
-    <form id="registroForm" style="display: none;">
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" required /><br /><br />
-      <label for="password">Contraseña:</label><br />
-      <input type="password" id="password" name="password" required /><br /><br />
-      <label for="nombre">Nombre de Usuario:</label><br />
-      <input type="text" id="nombre" name="nombre" required /><br /><br />
-      <label for="juegos">Juegos Favoritos:</label><br />
-      <textarea id="juegos" name="juegos" rows="4" cols="50"></textarea><br /><br />
-      <button type="submit">Crear Perfil</button>
-    </form>
-    <p id="feedbackMensaje"></p>
+      <form id="registroForm">
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" required /><br /><br />
+        <label for="password">Contraseña:</label><br />
+        <input type="password" id="password" name="password" required /><br /><br />
+        <label for="nombre">Nombre de Usuario:</label><br />
+        <input type="text" id="nombre" name="nombre" required /><br /><br />
+        <label for="juegos">Juegos Favoritos:</label><br />
+        <textarea id="juegos" name="juegos" rows="4" cols="50"></textarea><br /><br />
+        <button type="submit">Crear Perfil</button>
+      </form>
+      <p id="feedbackMensaje"></p>
 
-    <hr>
-    <h2>Iniciar Sesión</h2>
-    <form id="loginForm" style="display: none;">
-      <label for="loginEmail">Email:</label><br />
-      <input type="email" id="loginEmail" name="loginEmail" required /><br /><br />
-      <label for="loginPassword">Contraseña:</label><br />
-      <input type="password" id="loginPassword" name="loginPassword" required /><br /><br />
-      <button type="submit">Iniciar Sesión</button>
-    </form>
-    <p id="loginFeedbackMensaje"></p>
-
-    <hr>
-    <div id="dashboard" style="display: none;">
-      <h2>¡Bienvenido, <span id="userName"></span>!</h2>
-      
-      <div class="profile-container">
-        <img id="profilePic" src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-pic">
-        
-        <label for="profileImageFile" class="custom-file-upload">
-          <input type="file" id="profileImageFile" accept="image/*">
-          Personalizar Foto de Perfil
-        </label>
-      </div>
-      
-      <p>Tus juegos favoritos:</p>
-      <p><span id="userGames"></span></p>
-      
-      <button id="logoutBtn">Cerrar Sesión</button>
+      <hr>
+      <h2>Iniciar Sesión</h2>
+      <form id="loginForm">
+        <label for="loginEmail">Email:</label><br />
+        <input type="email" id="loginEmail" name="loginEmail" required /><br /><br />
+        <label for="loginPassword">Contraseña:</label><br />
+        <input type="password" id="loginPassword" name="loginPassword" required /><br /><br />
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p id="loginFeedbackMensaje"></p>
     </div>
 
-    <script src="script.js"></script>
+    <div id="welcome-message" class="oculto">
+      <h1>¡Bienvenido, <span id="welcomeUserName"></span>!</h1>
+    </div>
+
+    <div id="dashboard" class="dashboard-grid oculto">
+      <div id="left-panel" class="left-panel">
+        <img id="main-logo-dashboard" src="logo.png" alt="Logo de GameMate" class="logo-pequeno" />
+        
+        <div class="profile-group">
+          <img id="profilePic" src="https://via.placeholder.com/150" alt="Foto de Perfil" class="profile-pic">
+          <button id="editar-foto-btn" class="icon-btn">Editar foto</button>
+          <input type="file" id="profileImageFile" class="oculto" accept="image/*">
+        </div>
+        
+        <div class="info-item">
+          <h2 class="user-name-text"><span id="userName"></span></h2>
+        </div>
+
+        <div id="descripcion-display" class="info-item">
+          <p class="user-games-text">Descripción: <span id="userDescripcion"></span></p>
+          <button id="editar-descripcion-btn" class="icon-btn">✏️</button>
+        </div>
+        
+        <div id="editar-descripcion-container" class="oculto">
+          <textarea id="nueva-descripcion-input" rows="4" cols="25"></textarea>
+          <button id="guardar-descripcion-btn">Guardar</button>
+        </div>
+        
+        <div id="juegos-display" class="info-item">
+          <p class="user-games-text">Juegos: <span id="userGames"></span></p>
+          <button id="editar-juegos-btn" class="icon-btn">✏️</button>
+        </div>
+        
+        <div id="editar-juegos-container" class="oculto">
+          <textarea id="nuevo-juego-input" rows="4" cols="25"></textarea>
+          <button id="guardar-juegos-btn">Guardar</button>
+        </div>
+        
+        <button id="logoutBtn" class="logout-btn">Cerrar Sesión</button>
+      </div>
+
+      <div class="main-content">
+        <div class="tabs-container">
+          <button id="tab1-btn" class="tab-btn active" data-tab="buscar_jugadores">Buscar jugadores</button>
+          <button id="tab2-btn" class="tab-btn" data-tab="chat">Chat</button>
+          <button id="tab3-btn" class="tab-btn" data-tab="conexiones">Conexiones</button>
+        </div>
+        
+        <div id="tab-content-container">
+          </div>
+      </div>
+      
+      <div class="right-panel">
+        <h3>Galería de Hitos y Fotos</h3>
+        <div id="gallery-grid" class="gallery-grid">
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+          <div class="gallery-placeholder"></div>
+        </div>
+        <button id="editar-galeria-btn" class="btn-secundario">Editar Galería</button>
+        <div id="galeria-edicion-container" class="oculto">
+          <p>Selecciona una imagen para editar:</p>
+          <div id="galeria-edit-list" class="gallery-edit-list">
+            </div>
+        </div>
+
+        <h3 class="mt-40">Objetivos en Juegos</h3>
+        <div id="objetivos-display" class="objetivos-display">
+          <p>Tus objetivos: <span id="userObjetivos"></span></p>
+          <button id="editar-objetivos-btn" class="icon-btn">✏️</button>
+        </div>
+
+        <div id="editar-objetivos-container" class="oculto">
+          <label><input type="radio" name="objetivo" value="Chill" id="objetivo-chill-radio"> Chill</label>
+          <label><input type="radio" name="objetivo" value="Competitivo" id="objetivo-competitivo-radio"> Competitivo</label>
+          <button id="guardar-objetivos-btn">Guardar</button>
+        </div>
+      </div>
+    </div>
+    
+    <script src="auth.js"></script>
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
